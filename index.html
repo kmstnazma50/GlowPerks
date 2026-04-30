@@ -2,38 +2,105 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>স্পেশাল অফার</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>এক্সক্লুসিভ অফার – ১০টি স্পেশাল লিংক</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #1e3c72;
-            text-align: center;
-            padding: 50px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .box {
-            background: white;
-            max-width: 400px;
-            margin: auto;
-            padding: 30px;
-            border-radius: 20px;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            min-height: 100vh;
+            padding: 30px 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.95);
+            border-radius: 30px;
+            padding: 30px 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #d63031;
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        .sub {
+            text-align: center;
+            color: #2d3436;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .btn-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
         .btn {
-            background: #e17055;
+            display: block;
+            background: linear-gradient(95deg, #e17055, #d63031);
             color: white;
-            font-size: 20px;
-            padding: 12px 25px;
             text-decoration: none;
-            display: inline-block;
-            border-radius: 50px;
-            margin-top: 20px;
+            padding: 16px 20px;
+            border-radius: 60px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            transition: 0.3s;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(95deg, #d63031, #b33939);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 12px;
+            color: #636e72;
+            border-top: 1px solid #dfe6e9;
+            padding-top: 20px;
+        }
+        @media (max-width: 480px) {
+            .container { padding: 20px 15px; }
+            .btn { padding: 14px 12px; font-size: 16px; }
         }
     </style>
 </head>
 <body>
-    <div class="box">
-        <h1>🎁 আপনার পুরস্কার</h1>
-        <p>নিচের বাটনে ক্লিক করুন</p>
-        <a href="#" class="btn">👉 ক্লিক করুন 👈</a>
+<div class="container">
+    <h1>🎁 ১০টি স্পেশাল অফার</h1>
+    <div class="sub">নিচের যে কোনো বাটনে ক্লিক করুন এবং তাৎক্ষণিক আপনার পুরস্কার দাবি করুন</div>
+
+    <div class="btn-list">
+        <!-- ============================================= -->
+        <!-- 🔴 এখানে নিচের প্রতিটি "YOUR_LINK_HERE" এর জায়গায় 
+             আপনার আসল Adsterra লিংক বসান -->
+        <!-- ============================================= -->
+
+        <a href="YOUR_LINK_HERE" class="btn" target="_blank">✅ অফার ১ – এক্সক্লুসিভ পুরস্কার</a>
+        <a href="YOUR_LINK_HERE" class="btn" target="_blank">🔥 অফার ২ – সীমিত সময়ের ডিল</a>
+        <a href="YOUR_LINK_HERE" class="btn" target="_blank">🎁 অফার ৩ – বিনামূল্যে গিফট</a>
+        <a href="YOUR_LINK_HERE" class="btn" target="_blank">⚡ অফার ৪ – তাৎক্ষণিক পুরস্কার</a>
+        <a href="YOUR_LINK_HERE" class="btn" target="_blank">💰 অফার ৫ – ক্যাশ অফার</a>
+        <a href="YOUR_LINK_HERE" class="btn" target="_blank">📱 অফার ৬ – মোবাইল এক্সক্লুসিভ</a>
+        <a href="YOUR_LINK_HERE" class="btn" target="_blank">🌟 অফার ৭ – ভিআইপি ডিল</a>
+        <a href="YOUR_LINK_HERE" class="btn" target="_blank">🎉 অফার ৮ – বড় পুরস্কার</a>
+        <a href="YOUR_LINK_HERE" class="btn" target="_blank">🏆 অফার ৯ – চ্যাম্পিয়ান অফার</a>
+        <a href="YOUR_LINK_HERE" class="btn" target="_blank">🚀 অফার ১০ – ফাস্ট অ্যাকশন</a>
     </div>
+
+    <div class="footer">
+        © 2025 এক্সক্লুসিভ অফার | শুধুমাত্র সত্যিকারের ইউজারদের জন্য | টি&সি প্রযোজ্য
+    </div>
+</div>
 </body>
 </html>
