@@ -1,101 +1,450 @@
 <!DOCTYPE html>
-<html>
+<html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>এক্সক্লুসিভ অফার – ১০টি স্পেশাল লিংক</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            min-height: 100vh;
-            padding: 30px 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: rgba(255,255,255,0.95);
-            border-radius: 30px;
-            padding: 30px 25px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-        h1 {
-            color: #d63031;
-            text-align: center;
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-        .sub {
-            text-align: center;
-            color: #2d3436;
-            margin-bottom: 30px;
-            font-size: 16px;
-        }
-        .btn-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .btn {
-            display: block;
-            background: linear-gradient(95deg, #e17055, #d63031);
-            color: white;
-            text-decoration: none;
-            padding: 16px 20px;
-            border-radius: 60px;
-            font-size: 18px;
-            font-weight: bold;
-            text-align: center;
-            transition: 0.3s;
-            box-shadow: 0 5px 12px rgba(0,0,0,0.2);
-            border: none;
-            cursor: pointer;
-        }
-        .btn:hover {
-            transform: translateY(-3px);
-            background: linear-gradient(95deg, #d63031, #b33939);
-            box-shadow: 0 8px 18px rgba(0,0,0,0.25);
-        }
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 12px;
-            color: #636e72;
-            border-top: 1px solid #dfe6e9;
-            padding-top: 20px;
-        }
-        @media (max-width: 480px) {
-            .container { padding: 20px 15px; }
-            .btn { padding: 14px 12px; font-size: 16px; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>🔥 স্পেশাল অফার জোন | ২৭টি এক্সক্লুসিভ ডিল</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: radial-gradient(circle at 10% 20%, #0a0f2a, #04071a);
+      font-family: 'Inter', system-ui, sans-serif;
+      padding: 2rem 1rem;
+      min-height: 100vh;
+    }
+
+    .main-container {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    /* header section */
+    .hero {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #FFD166, #FF6B9D, #A855F7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .hero h1 i {
+      background: none;
+      -webkit-text-fill-color: #FFB347;
+      font-size: 2rem;
+    }
+
+    .hero p {
+      color: #a0a8c0;
+      margin-top: 8px;
+      font-weight: 500;
+    }
+
+    /* stats card */
+    .stats-card {
+      background: rgba(20, 24, 54, 0.65);
+      backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      padding: 1rem 1.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+    }
+
+    .total-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #E0D6FF;
+      font-weight: 600;
+    }
+
+    .total-box i {
+      font-size: 2rem;
+      color: #FFB347;
+    }
+
+    .total-number {
+      background: #0a0e2a;
+      padding: 6px 20px;
+      border-radius: 50px;
+      font-size: 2rem;
+      font-weight: 800;
+      color: #FFD966;
+      font-family: monospace;
+      letter-spacing: 2px;
+      border: 1px solid #FFB347;
+    }
+
+    .legend {
+      display: flex;
+      gap: 20px;
+    }
+
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      color: #c4b5fd;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #3b2a6b;
+    }
+
+    .dot.active {
+      background: #10b981;
+      box-shadow: 0 0 6px #34d399;
+    }
+
+    /* section label */
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 2rem 0 1rem 0;
+      padding-bottom: 6px;
+      border-bottom: 2px solid rgba(168, 85, 247, 0.4);
+    }
+
+    .section-title i {
+      font-size: 1.5rem;
+      color: #FFB347;
+    }
+
+    .section-title h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #f0ecff;
+    }
+
+    .badge {
+      background: #FF6B9D;
+      padding: 2px 12px;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #0a0a1a;
+    }
+
+    /* button grid */
+    .btn-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
+    }
+
+    .offer-btn {
+      background: linear-gradient(105deg, #161c3a, #0e1230);
+      border: 1px solid #2f2b6b;
+      border-radius: 60px;
+      padding: 12px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      color: #dddaff;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .offer-btn:hover {
+      transform: translateY(-3px);
+      background: linear-gradient(105deg, #1f2a55, #12183f);
+      border-color: #A855F7;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.4);
+    }
+
+    .btn-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow: hidden;
+    }
+
+    .btn-left i {
+      font-size: 1.2rem;
+      color: #FFB347;
+      min-width: 28px;
+      text-align: center;
+    }
+
+    .btn-left span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .click-count {
+      background: #00000055;
+      border-radius: 40px;
+      padding: 3px 12px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: #FFD966;
+      border: 0.5px solid #FFB347;
+      font-family: monospace;
+    }
+
+    .offer-btn.clicked {
+      background: linear-gradient(105deg, #0f462f, #0a2c24);
+      border-color: #10b981;
+    }
+
+    .offer-btn.clicked .click-count {
+      background: #064e3b;
+      color: #facc15;
+    }
+
+    /* reset button */
+    .reset-btn {
+      background: rgba(255, 75, 100, 0.15);
+      border: 1px solid #ff6b6b;
+      border-radius: 50px;
+      padding: 6px 18px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #ffb4b4;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .reset-btn:hover {
+      background: #ff4d4d30;
+      color: #ffffff;
+      border-color: #ff9f4a;
+    }
+
+    footer {
+      margin-top: 2rem;
+      text-align: center;
+      color: #5b5d8a;
+      font-size: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    @media (max-width: 600px) {
+      .stats-card { flex-direction: column; align-items: stretch; padding: 1rem; }
+      .btn-grid { grid-template-columns: 1fr; }
+      .offer-btn { padding: 12px 16px; }
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-    <h1>🎁 ১০টি স্পেশাল অফার</h1>
-    <div class="sub">নিচের যে কোনো বাটনে ক্লিক করুন এবং তাৎক্ষণিক আপনার পুরস্কার দাবি করুন</div>
+<div class="main-container">
+  <div class="hero">
+    <h1><i class="fas fa-crown"></i> স্পেশাল অফার জোন <i class="fas fa-gem"></i></h1>
+    <p>২৭টি লাইভ ডিল · ক্লিক করুন আর পুরস্কার দাবি করুন</p>
+  </div>
 
-    <div class="btn-list">
-        <a href="https://www.facebook.com/profile.php?id=61581858983937" class="btn" target="_blank">✅ অফার ১ – এক্সক্লুসিভ পুরস্কার</a>
-        <a href="https://www.facebook.com/profile.php?id=61581706471868" class="btn" target="_blank">🔥 অফার ২ – সীমিত সময়ের ডিল</a>
-        <a href="https://www.facebook.com/profile.php?id=61581683583020" class="btn" target="_blank">🎁 অফার ৩ – বিনামূল্যে গিফট</a>
-        <a href="https://www.facebook.com/profile.php?id=61581708901669" class="btn" target="_blank">⚡ অফার ৪ – তাৎক্ষণিক পুরস্কার</a>
-        <a href="https://www.facebook.com/profile.php?id=61581589597590" class="btn" target="_blank">💰 অফার ৫ – ক্যাশ অফার</a>
-        <a href="https://www.facebook.com/profile.php?id=61581983046886" class="btn" target="_blank">📱 অফার ৬ – মোবাইল এক্সক্লুসিভ</a>
-        <a href="https://www.facebook.com/profile.php?id=61581998015893" class="btn" target="_blank">🌟 অফার ৭ – ভিআইপি ডিল</a>
-        <a href="https://www.facebook.com/profile.php?id=61582667896026" class="btn" target="_blank">🎉 অফার ৮ – বড় পুরস্কার</a>
-        <a href="https://www.facebook.com/profile.php?id=61582786930862" class="btn" target="_blank">🏆 অফার ৯ – চ্যাম্পিয়ান অফার</a>
-        <a href="https://www.facebook.com/profile.php?id=61583153575501" class="btn" target="_blank">🚀 অফার ১০ – ফাস্ট অ্যাকশন</a>
+  <div class="stats-card">
+    <div class="total-box">
+      <i class="fas fa-chart-line"></i>
+      <span>মোট ক্লিক</span>
+      <div class="total-number" id="totalClicks">0</div>
     </div>
+    <div class="legend">
+      <span><i class="dot"></i> অপেক্ষমাণ</span>
+      <span><i class="dot active"></i> ক্লিক হয়েছে</span>
+    </div>
+  </div>
 
-    <div class="footer">
-        © 2025 এক্সক্লুসিভ অফার | শুধুমাত্র সত্যিকারের ইউজারদের জন্য | টি&সি প্রযোজ্য
-    </div>
+  <!-- ========= গ্রুপ 1 : নিউ অ্যারাইভালস ========= -->
+  <div class="section-title">
+    <i class="fas fa-fire"></i>
+    <h2>নিউ অ্যারাইভাল</h2>
+    <div class="badge">সর্বশেষ</div>
+  </div>
+  <div class="btn-grid" id="group1"></div>
+
+  <!-- ========= গ্রুপ 2 : স্পেশাল ভিআইপি ========= -->
+  <div class="section-title">
+    <i class="fas fa-crown"></i>
+    <h2>ভিআইপি এক্সক্লুসিভ</h2>
+    <div class="badge">প্রিমিয়াম</div>
+  </div>
+  <div class="btn-grid" id="group2"></div>
+
+  <!-- ========= গ্রুপ 3 : বেস্ট ভ্যালু ========= -->
+  <div class="section-title">
+    <i class="fas fa-bolt"></i>
+    <h2>বেস্ট ভ্যালু ডিল</h2>
+    <div class="badge">হট</div>
+  </div>
+  <div class="btn-grid" id="group3"></div>
+
+  <footer>
+    <span><i class="far fa-clock"></i> ২৭টি লাইভ অফার · নিয়মিত আপডেট হয়</span>
+    <div class="reset-btn" id="resetAllBtn"><i class="fas fa-trash-alt"></i> রিসেট কাউন্টার</div>
+  </footer>
 </div>
+
+<script>
+  // ===================== আপনার লিংক এখানে বসান =====================
+  // ২৭টি অফার এর লিংক আপনার ইচ্ছামতো পরিবর্তন করুন
+  const OFFERS = [
+    // গ্রুপ ১ : ১১টি নিউ অ্যারাইভাল
+    { name: "⚡ ফ্ল্যাশ ডিল", icon: "bolt", link: "https://socialconventcontext.com/pqu51hfj?key=e3d29eb9e013931e709b0659e1e92c2e" },
+    { name: "🚀 রকেট অফার", icon: "rocket", link: "https://socialconventcontext.com/bpj626q4?key=7984572ce4d11f79f3ce7cb787d20f3c" },
+    { name: "🎁 মিস্ট্রি গিফট", icon: "gift", link: "https://socialconventcontext.com/x4m24xceh?key=0e5d4e45dfbc04b2665095cd4711ed79" },
+    { name: "⭐ তারকা রিওয়ার্ড", icon: "star", link: "https://socialconventcontext.com/tnejfvyu1?key=09ddacb88ddee03115703608bb2aff77" },
+    { name: "🔥 ফায়ার ড্রপ", icon: "fire", link: "https://socialconventcontext.com/jrvgr2gsj7?key=25fd50841e0397721807361a603d8b57" },
+    { name: "🏝️ ভ্যাকেশন বোনাস", icon: "umbrella-beach", link: "https://socialconventcontext.com/zgiicfmvt2?key=f661d15ec9f7a5646887fbe7b006c080" },
+    { name: "🍕 ফুডি বোনাস", icon: "pizza-slice", link: "https://socialconventcontext.com/be4v2673m?key=0544e7827fe96548b9cb540e7c0f6ba2" },
+    { name: "🎮 গেমার লুট", icon: "gamepad", link: "https://socialconventcontext.com/wpihc3znh4?key=7d6724c7855f70ee683fda80abff3229" },
+    { name: "💰 ক্যাশ গ্র্যাব", icon: "wallet", link: "https://socialconventcontext.com/k5t9z148?key=7c122115e5ee1b691718a4a5f41cfa1b" },
+    { name: "🏆 উইনার পিক", icon: "trophy", link: "https://socialconventcontext.com/emy7w5yb?key=fee1ec52322b97b8d3858c4a4cf70ac0" },
+    { name: "👑 মেইনস্ট্রিম ভিআইপি", icon: "gem", link: "https://socialconventcontext.com/wif1te02y5?key=069f7c605de968b739cb14d5b0daa5f7" },
+
+    // গ্রুপ ২ : ৮টি ভিআইপি
+    { name: "☕ গোল্ড কফি", icon: "mug-hot", link: "https://socialconventcontext.com/gjj8w61p?key=1f1b7c87e3341c743fc56212a0f86067" },
+    { name: "🍫 মোচা এলিট", icon: "mug-hot", link: "https://socialconventcontext.com/nbdew3qhqw?key=f8c3ff33cf224df228052d7d73f05580" },
+    { name: "👑 রয়্যাল কফি", icon: "mug-hot", link: "https://socialconventcontext.com/s5dka172?key=e8c9cdc77edf79ce2912ccc85528f708" },
+    { name: "📱 আইফোন ১৫ প্রো", icon: "mobile-alt", link: "https://socialconventcontext.com/e3zu8b1j82?key=d5122de122cf699c7a895367ed0a1647" },
+    { name: "🏎️ স্পোর্টস কার", icon: "car", link: "https://socialconventcontext.com/s5dka172?key=e8c9cdc77edf79ce2912ccc85528f708" },
+    { name: "🏍️ আর১৫ বাইক", icon: "motorcycle", link: "https://socialconventcontext.com/zairxmg1p7?key=2e0f92796d378da49d9a6a3fa7c5ad4b" },
+    { name: "🚗 বিএমডব্লিউ সিরিজ", icon: "car-side", link: "https://socialconventcontext.com/qzsr5dudf6?key=2f0cef4977e0b09480bd5b7769960157" },
+    { name: "🏡 ড্রিম হাউস", icon: "home", link: "https://socialconventcontext.com/ueqzvpfm8?key=c957469b2411c59601449dd030e0db9c" },
+
+    // গ্রুপ ৩ : ৮টি বেস্ট ভ্যালু
+    { name: "💎 মেগা বোনাস", icon: "gem", link: "https://socialconventcontext.com/g5cdujm8?key=891fd44b27fbea2559d700f3c2842195" },
+    { name: "⚡ টার্বো বুস্ট", icon: "tachometer-alt", link: "https://socialconventcontext.com/z7y28epmz?key=a4e9151cbc3038fe5531aef75aac3c95" },
+    { name: "💎 ডায়মন্ড ড্রপ", icon: "gem", link: "https://socialconventcontext.com/g3gtefp23v?key=e957fb12dbab1a748c1cc681685a4a3d" },
+    { name: "₿ ক্রিপ্টো ভল্ট", icon: "bitcoin", link: "https://socialconventcontext.com/dw2z2fid?key=db8f0f8f8c7a1b1f6ec185f9f3fb45e0" },
+    { name: "🪙 গোল্ড রাশ", icon: "coins", link: "https://socialconventcontext.com/hizwb3kum6?key=21f3ab8973d56caab82fbc4a65aeb33c" },
+    { name: "🏎️ নিয়ন রেসার", icon: "car", link: "https://socialconventcontext.com/sdg9ee4cw?key=370454e7b6ce9f86adc1b236e1f346b8" },
+    { name: "🎧 সাইবার গিয়ার", icon: "headphones", link: "https://socialconventcontext.com/i7aw2hpts?key=d7c3200e9f0a1a1f911d973171e60ee3" },
+    { name: "⌚ লাক্সারি ওয়াচ", icon: "clock", link: "https://socialconventcontext.com/m8uh7upr4?key=f21fb3bb868014426d543332eff0e260" }
+  ];
+
+  // গ্রুপ ভাগ করা (১১ + ৮ + ৮ = ২৭)
+  const GROUP_OFFERS = {
+    group1: OFFERS.slice(0, 11),   // প্রথম ১১টি নিউ অ্যারাইভাল
+    group2: OFFERS.slice(11, 19),  // পরের ৮টি ভিআইপি
+    group3: OFFERS.slice(19, 27)   // শেষ ৮টি বেস্ট ভ্যালু
+  };
+
+  let clickCounts = new Array(27).fill(0);
+  const STORAGE_KEY = "clickTracker27";
+
+  function loadCounts() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        let arr = JSON.parse(saved);
+        if (arr.length === 27) clickCounts = arr;
+      } catch(e) {}
+    }
+  }
+
+  function saveCounts() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(clickCounts));
+  }
+
+  function updateTotalDisplay() {
+    const total = clickCounts.reduce((a,b) => a+b, 0);
+    document.getElementById("totalClicks").innerText = total;
+  }
+
+  function renderButton(offer, idx, groupId) {
+    const count = clickCounts[idx];
+    const isClicked = count > 0;
+    const btn = document.createElement("a");
+    btn.href = offer.link;
+    btn.target = "_blank";
+    btn.rel = "noopener noreferrer";
+    btn.className = "offer-btn" + (isClicked ? " clicked" : "");
+    btn.setAttribute("data-idx", idx);
+    
+    btn.innerHTML = `
+      <div class="btn-left">
+        <i class="fas fa-${offer.icon}"></i>
+        <span>${offer.name}</span>
+      </div>
+      <div class="click-count">${count}</div>
+    `;
+
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      clickCounts[idx] += 1;
+      saveCounts();
+      updateTotalDisplay();
+      renderGroups();  // full re-render to update UI
+    });
+
+    return btn;
+  }
+
+  function renderGroups() {
+    const group1Container = document.getElementById("group1");
+    const group2Container = document.getElementById("group2");
+    const group3Container = document.getElementById("group3");
+    group1Container.innerHTML = "";
+    group2Container.innerHTML = "";
+    group3Container.innerHTML = "";
+
+    let globalIdx = 0;
+    // group 1 (0-10)
+    for (let i = 0; i < GROUP_OFFERS.group1.length; i++) {
+      group1Container.appendChild(renderButton(GROUP_OFFERS.group1[i], globalIdx++, "group1"));
+    }
+    // group 2 (11-18)
+    for (let i = 0; i < GROUP_OFFERS.group2.length; i++) {
+      group2Container.appendChild(renderButton(GROUP_OFFERS.group2[i], globalIdx++, "group2"));
+    }
+    // group 3 (19-26)
+    for (let i = 0; i < GROUP_OFFERS.group3.length; i++) {
+      group3Container.appendChild(renderButton(GROUP_OFFERS.group3[i], globalIdx++, "group3"));
+    }
+    updateTotalDisplay();
+  }
+
+  function resetCounters() {
+    for (let i = 0; i < clickCounts.length; i++) clickCounts[i] = 0;
+    saveCounts();
+    renderGroups();
+  }
+
+  document.getElementById("resetAllBtn").addEventListener("click", resetCounters);
+  loadCounts();
+  renderGroups();
+</script>
 </body>
 </html>
