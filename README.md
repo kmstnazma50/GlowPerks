@@ -1,1 +1,1 @@
-NovaRewards
+#adsterra
