@@ -259,11 +259,48 @@
       color: #0a0a1a;
     }
 
+    .pagination-controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 1rem 0;
+    }
+    .page-nav-btn {
+      background: linear-gradient(105deg, #1a1e32, #11152a);
+      border: 1px solid #fb923c;
+      border-radius: 60px;
+      padding: 8px 20px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #ffdead;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .page-nav-btn:hover {
+      background: linear-gradient(105deg, #2a2f4a, #1a1f38);
+      border-color: #f97316;
+      transform: translateY(-2px);
+    }
+    .page-nav-btn.disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+    .page-info {
+      color: #86efac;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+    }
+
     .btn-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 14px;
-      max-height: 55vh;
+      max-height: 60vh;
       overflow-y: auto;
       padding-right: 8px;
     }
@@ -280,66 +317,70 @@
       border-radius: 10px;
     }
 
-    .offer-btn {
+    .offer-card {
       background: linear-gradient(105deg, #13182e, #0c1022);
       border: 1px solid #3b3f66;
+      border-radius: 1.5rem;
+      padding: 1rem;
+      transition: all 0.25s ease;
+    }
+    .offer-card:hover {
+      transform: translateY(-2px);
+      border-color: #4ade80;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.3);
+    }
+    .iframe-wrapper {
+      margin-bottom: 1rem;
+      overflow: hidden;
+      border-radius: 12px;
+      line-height: 0;
+    }
+    .iframe-wrapper iframe {
+      width: 100%;
+      border: none;
+      overflow: hidden;
+      border-radius: 12px;
+      display: block;
+    }
+    .claim-btn {
+      background: linear-gradient(105deg, #1a1e32, #11152a);
+      border: 1px solid #fb923c;
       border-radius: 60px;
-      padding: 12px 12px;
+      padding: 10px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
-      text-decoration: none;
+      gap: 12px;
+      cursor: pointer;
       transition: all 0.25s ease;
       color: #e2e8f0;
       font-weight: 600;
       font-size: 0.9rem;
-      cursor: pointer;
     }
-
-    .offer-btn:hover {
-      transform: translateY(-3px);
+    .claim-btn:hover {
+      transform: translateY(-2px);
       background: linear-gradient(105deg, #1c2340, #12172e);
       border-color: #4ade80;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.4);
     }
-
-    .offer-btn.disabled {
+    .claim-btn.disabled {
       opacity: 0.6;
       cursor: not-allowed;
       pointer-events: none;
       background: linear-gradient(105deg, #1a2a1a, #0f1f0f);
       border-color: #4a6a4a;
-      transform: none;
     }
-    .offer-btn.disabled:hover {
-      transform: none;
-      box-shadow: none;
-    }
-    .offer-btn.disabled .click-count {
-      background: #1a3a1a;
-      color: #6a9e6a;
-    }
-
-    .btn-left {
+    .claim-btn-left {
       display: flex;
       align-items: center;
       gap: 10px;
-      overflow: hidden;
       flex: 1;
     }
-    .btn-left i {
+    .claim-btn-left i {
       font-size: 1.2rem;
       color: #f97316;
       min-width: 28px;
-      text-align: center;
     }
-    .btn-left span {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .click-count {
+    .claim-count {
       background: #00000055;
       border-radius: 40px;
       padding: 3px 12px;
@@ -351,11 +392,7 @@
       min-width: 50px;
       text-align: center;
     }
-    .offer-btn.clicked {
-      background: linear-gradient(105deg, #0f3b2a, #0a261c);
-      border-color: #10b981;
-    }
-    .offer-btn.clicked .click-count {
+    .claim-btn.clicked .claim-count {
       background: #064e3b;
       color: #facc15;
     }
@@ -458,6 +495,11 @@
     <div class="mobile-tier-bar" id="mobileTierBar">
       <h3><i class="fas fa-layer-group"></i> Select Your Offer</h3>
       <div class="mobile-triggers" id="mobileTriggers"></div>
+      <div class="pagination-controls" style="margin-top: 12px;">
+        <div class="page-nav-btn" id="mobilePrevBtn"><i class="fas fa-chevron-left"></i> Prev</div>
+        <div class="page-info" id="mobilePageInfo">Page 1/3</div>
+        <div class="page-nav-btn" id="mobileNextBtn">Next <i class="fas fa-chevron-right"></i></div>
+      </div>
     </div>
 
     <div class="section-title" id="dynamicSectionTitle">
@@ -492,52 +534,57 @@
   <div class="level-sidebar">
     <h3><i class="fas fa-layer-group"></i> Select Your Offer</h3>
     <div class="triggers-grid" id="desktopTriggers"></div>
+    <div class="pagination-controls" style="margin-top: 15px;">
+      <div class="page-nav-btn" id="desktopPrevBtn"><i class="fas fa-chevron-left"></i> Prev</div>
+      <div class="page-info" id="desktopPageInfo">Page 1/3</div>
+      <div class="page-nav-btn" id="desktopNextBtn">Next <i class="fas fa-chevron-right"></i></div>
+    </div>
   </div>
 </div>
 
 <script>
-  // ==================== 30 FACEBOOK IFRAME POSTS ====================
-  const ALL_FRAMES = [
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02SNHoTApWVs1EaGaStEDoAjwDVhaHhdW17c6npm5BGP3ae2VrxajayQyJ6Bo4jf9il%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02QmgQqJodErAeuGxatDEscgELgkqgPQPwa4i2oRHXVJ2sSSZKNiWBZT4ab5nRLhHFl%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02RzZJGqdMkVk2gJY4PynyG5tLRH8TxVeUCcsSveb4KXmFz1y6wEYNW1PGLwPEeUAel%26id%3D100091951256947&show_text=true&width=500" width="100%" height="227" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid0w6BYDtSqH21NwE9kX9zpxkgq6AHi4t6QngoBGvZVoY94WvbiZkGELn5khHJVCEuLl%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02MK4Wd1MdprhFWC3cdRPcVmh6XfLuoFBAuao7eS9pMroc15ypY1NjRtVE758Dfiszl%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02CsFgk3NS5zPp8r8rGbtvYWgG62fLLHwpTR8dpHv3Dh8drWP9giZweWXCPX4rE3kAl%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02YewdCeEtV4LGrzPfeQvPJnXWMpkvJ5YC98bHDa7GpXvtAMrgWGMq5TCezEQ8X6eAl%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid0suBRkZvccwwX9YmHTyv74LJW8GKNiRSAQA1kEcYM11kG3xfTcuBNYGmz46eCKKevl%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid0J57SHSMfXm9LQRuB9WXirK172W8ucYAdKiNJhD4SiDBXoQKhra67EC572ngyBUYil%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid0veC17epUKtHx5VTf5ieiqipr25tPMAPZ37zzmzGvTQKBuJLNDwDomEWaPNaGkdUfl%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02psZzjTQrNU5rHR9oLKzkiEpsXauecKFqH2skN3Jqqw7Ue6pJNk1ogf3zdAxZkBocl%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02g1ByitcMkRC6kcwqLemkFErTuvdjNkdYymTUYmKPXwFsjN8hyQ56ZX1zUKqimvHDl%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid0tGavnHrSaYmojVndahT8W4Wo51bHWHzXdUk8voxcW3Q76yp1LiLYnQo9HfDCsVPEl%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02ZDVEiGnpyf3izbDaBkJDQBFXZyxeHoBmk1B7qgwPUzir1Lm7Rxcd4FZNV9koyeFXl%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid029iKvYaBw4yUL3N3EYf1RnVpgAoay6xPqJwKDBoqrrk2rjHrt6WTfDqpCbUmqS2c1l%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid033chnzM6dR6TeLicwDTL4K7khCjtRdE44Te1kLfp65ps36HpvVT7bprYfhw6Vbsz5l%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02FgXGbo4QAJvvXsTCkAijUJtmQtkQQveh2YPEpFKqH64gxuoj1fti6XwZx44Fpatnl%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid0329xSVqnRAL6whngN4EH92WWh1ABsJPTdtpqLsnjvG7UBPGTDisC5pZeCxpHqpdrhl%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid0MvtBehosm77ZaBF3hExQTf9GCcbb9XqKxMimKCPDLCspRwxenNmz5kK4NwPdkJRml%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02bntQPXGWzEDmp4u3a9x6RyCrYUyaPo8Pn8Zd3G3ySyGkj2Tbxt34nyfaXZreHeNUl%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02i7WGTsuwXJ7wDZXBbyFv4gPQSLrAbEJEZkttCjj6i8nQftqrNb8huQYjPqGfCJrdl%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02ASbFh1GiM1tFbK64fLcAoXR4nGnV19EsW2KHRoShnFc2rBb5gBvDMUaJXRkTHdZ2l%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid096qMAhAEwaDQhvPCPRgKjkpqxZWhzsQYGyVLDnow7QhaC1yWqjCM7SyMPSgydYy9l%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid029yBMAuCBVDckXw1KzHYmKFQPCB9Kr1VQYdUV5QWkqhS3DJhkJX6gVSPehRBET914l%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid0PdVxKiLN5VS8YqvkZMbxJNaG6EnpT43sKsTyRAd2Sw8AYwtN3E3pWnS7wH6gMDYcl%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02q9d81FMiqooX5wgxB7MvyBNrfwXHuZcRrKrAkr2uLrZWx4u9QvyYkMXeLCUDkwx9l%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02XcYpWZsX6Z9QzUvrykP7kEe7DmXQvmwWgeJFxidwe9dYSkxBWZiBCe8zuXUgt3jGl%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02MrJ66yDBLYe9J78Ehj2ovBiQqKXzwwrpSnKX5XodXmERqomV18Epkyxez7zcyh6bl%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02rEJwjaaMizZPk2zx4PoNdS2g965G5DxFbniX8SNSe2B6vGXcLJ95SgqCzVRyKkCPl%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`,
-    `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02ymNMif2R4MKbuLZ5aHbuLummbrLGzbiT1agaaKgCX6xUrvCJFLrBhuM6FAnyhGKSl%26id%3D100091951256947&show_text=true&width=500" width="100%" height="207" style="border:none;overflow:hidden;border-radius:16px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`
+  // ==================== 30 FACEBOOK IFRAME POSTS WITH EXACT HEIGHTS ====================
+  // Heights: 207px (most), 227px (one special)
+  const FRAMES_DATA = [
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02SNHoTApWVs1EaGaStEDoAjwDVhaHhdW17c6npm5BGP3ae2VrxajayQyJ6Bo4jf9il%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02QmgQqJodErAeuGxatDEscgELgkqgPQPwa4i2oRHXVJ2sSSZKNiWBZT4ab5nRLhHFl%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02RzZJGqdMkVk2gJY4PynyG5tLRH8TxVeUCcsSveb4KXmFz1y6wEYNW1PGLwPEeUAel%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:227px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 227 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid0w6BYDtSqH21NwE9kX9zpxkgq6AHi4t6QngoBGvZVoY94WvbiZkGELn5khHJVCEuLl%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02MK4Wd1MdprhFWC3cdRPcVmh6XfLuoFBAuao7eS9pMroc15ypY1NjRtVE758Dfiszl%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02CsFgk3NS5zPp8r8rGbtvYWgG62fLLHwpTR8dpHv3Dh8drWP9giZweWXCPX4rE3kAl%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02YewdCeEtV4LGrzPfeQvPJnXWMpkvJ5YC98bHDa7GpXvtAMrgWGMq5TCezEQ8X6eAl%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid0suBRkZvccwwX9YmHTyv74LJW8GKNiRSAQA1kEcYM11kG3xfTcuBNYGmz46eCKKevl%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid0J57SHSMfXm9LQRuB9WXirK172W8ucYAdKiNJhD4SiDBXoQKhra67EC572ngyBUYil%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid0veC17epUKtHx5VTf5ieiqipr25tPMAPZ37zzmzGvTQKBuJLNDwDomEWaPNaGkdUfl%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02psZzjTQrNU5rHR9oLKzkiEpsXauecKFqH2skN3Jqqw7Ue6pJNk1ogf3zdAxZkBocl%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02g1ByitcMkRC6kcwqLemkFErTuvdjNkdYymTUYmKPXwFsjN8hyQ56ZX1zUKqimvHDl%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid0tGavnHrSaYmojVndahT8W4Wo51bHWHzXdUk8voxcW3Q76yp1LiLYnQo9HfDCsVPEl%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02ZDVEiGnpyf3izbDaBkJDQBFXZyxeHoBmk1B7qgwPUzir1Lm7Rxcd4FZNV9koyeFXl%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid029iKvYaBw4yUL3N3EYf1RnVpgAoay6xPqJwKDBoqrrk2rjHrt6WTfDqpCbUmqS2c1l%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid033chnzM6dR6TeLicwDTL4K7khCjtRdE44Te1kLfp65ps36HpvVT7bprYfhw6Vbsz5l%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02FgXGbo4QAJvvXsTCkAijUJtmQtkQQveh2YPEpFKqH64gxuoj1fti6XwZx44Fpatnl%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid0329xSVqnRAL6whngN4EH92WWh1ABsJPTdtpqLsnjvG7UBPGTDisC5pZeCxpHqpdrhl%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid0MvtBehosm77ZaBF3hExQTf9GCcbb9XqKxMimKCPDLCspRwxenNmz5kK4NwPdkJRml%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02bntQPXGWzEDmp4u3a9x6RyCrYUyaPo8Pn8Zd3G3ySyGkj2Tbxt34nyfaXZreHeNUl%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02i7WGTsuwXJ7wDZXBbyFv4gPQSLrAbEJEZkttCjj6i8nQftqrNb8huQYjPqGfCJrdl%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02ASbFh1GiM1tFbK64fLcAoXR4nGnV19EsW2KHRoShnFc2rBb5gBvDMUaJXRkTHdZ2l%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid096qMAhAEwaDQhvPCPRgKjkpqxZWhzsQYGyVLDnow7QhaC1yWqjCM7SyMPSgydYy9l%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid029yBMAuCBVDckXw1KzHYmKFQPCB9Kr1VQYdUV5QWkqhS3DJhkJX6gVSPehRBET914l%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid0PdVxKiLN5VS8YqvkZMbxJNaG6EnpT43sKsTyRAd2Sw8AYwtN3E3pWnS7wH6gMDYcl%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02q9d81FMiqooX5wgxB7MvyBNrfwXHuZcRrKrAkr2uLrZWx4u9QvyYkMXeLCUDkwx9l%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02XcYpWZsX6Z9QzUvrykP7kEe7DmXQvmwWgeJFxidwe9dYSkxBWZiBCe8zuXUgt3jGl%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02MrJ66yDBLYe9J78Ehj2ovBiQqKXzwwrpSnKX5XodXmERqomV18Epkyxez7zcyh6bl%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02rEJwjaaMizZPk2zx4PoNdS2g965G5DxFbniX8SNSe2B6vGXcLJ95SgqCzVRyKkCPl%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
+    { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02ymNMif2R4MKbuLZ5aHbuLummbrLGzbiT1agaaKgCX6xUrvCJFLrBhuM6FAnyhGKSl%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 }
   ];
 
-  // Offer titles for each tier (1 per tier)
   const OFFER_TITLES = [
-    "🔥 Premium Access Pass", "💎 Diamond Treasure", "👑 Royal Gold Deal", "⚡ Lightning Reward", "🎁 Mystery Gift Box",
-    "🚀 Rocket Speed Bonus", "⭐ Platinum Star Pack", "🏆 Champion Winner", "💰 Cash Vault", "🎯 Precision Offer",
-    "🌙 Midnight Magic", "☀️ Golden Sunrise", "🌀 Cyclone Surge", "❄️ Frost Diamond", "🌈 Rainbow Unicorn",
-    "🦅 Eagle Eye Deal", "🐉 Dragon Fire", "🦁 Lion Heart", "🐺 Wolf Pack", "🦊 Silver Fox",
-    "🐼 Lucky Panda", "🐧 Emperor Gift", "🦄 Crystal Vault", "🐳 Blue Whale", "🦇 Night Shadow",
-    "🍀 Lucky Clover", "🎲 Double Dice", "🏹 Archer Pack", "⚔️ Knight Honor", "🛡️ Ancient Shield"
+    "🔥 Premium Access", "💎 Diamond Treasure", "👑 Royal Gold", "⚡ Lightning Reward", "🎁 Mystery Box",
+    "🚀 Rocket Bonus", "⭐ Platinum Star", "🏆 Champion", "💰 Cash Vault", "🎯 Precision",
+    "🌙 Midnight Magic", "☀️ Golden Sunrise", "🌀 Cyclone", "❄️ Frost Diamond", "🌈 Unicorn",
+    "🦅 Eagle Eye", "🐉 Dragon Fire", "🦁 Lion Heart", "🐺 Wolf Pack", "🦊 Silver Fox",
+    "🐼 Lucky Panda", "🐧 Emperor Gift", "🦄 Crystal", "🐳 Blue Whale", "🦇 Night Shadow",
+    "🍀 Lucky Clover", "🎲 Double Dice", "🏹 Archer", "⚔️ Knight Honor", "🛡️ Ancient Shield"
   ];
 
   const OFFER_ICONS = [
@@ -549,21 +596,40 @@
     "leaf", "dice-d6", "bow-arrow", "shield-halbed", "shield-alt"
   ];
 
-  // Build 30 tiers, each with 1 offer (the iframe itself)
-  const TIER_OFFERS = {};
-  for (let i = 0; i < 30; i++) {
-    TIER_OFFERS[i+1] = [{
-      name: OFFER_TITLES[i],
-      icon: OFFER_ICONS[i],
-      iframeHtml: ALL_FRAMES[i]
-    }];
+  // Random shuffle for each user (persistent)
+  function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
   }
+
+  function getRandomOrder() {
+    const RANDOM_ORDER_KEY = "premiumOfferRandomV4";
+    const savedOrder = localStorage.getItem(RANDOM_ORDER_KEY);
+    if (savedOrder) {
+      try {
+        const parsed = JSON.parse(savedOrder);
+        if (parsed.length === 30) return parsed;
+      } catch(e) {}
+    }
+    const order = Array.from({length: 30}, (_, i) => i);
+    shuffleArray(order);
+    localStorage.setItem(RANDOM_ORDER_KEY, JSON.stringify(order));
+    return order;
+  }
+
+  const randomOrder = getRandomOrder();
+  const shuffledFrames = randomOrder.map(i => FRAMES_DATA[i].html);
+  const shuffledTitles = randomOrder.map(i => OFFER_TITLES[i]);
+  const shuffledIcons = randomOrder.map(i => OFFER_ICONS[i]);
 
   const TOTAL_OFFERS = 30;
   let clickCounts = new Array(TOTAL_OFFERS).fill(0);
   let claimedStatus = new Array(TOTAL_OFFERS).fill(false);
-  const STORAGE_KEY = "premiumOfferFrameV1";
-  const CLAIMED_KEY = "premiumOfferFrameClaimedV1";
+  const STORAGE_KEY = "premiumOfferFrameRandomV4";
+  const CLAIMED_KEY = "premiumOfferFrameClaimedRandomV4";
 
   function loadCounts() {
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -591,99 +657,128 @@
   }
 
   let currentTier = 1;
+  let currentPage = 0;
+  const ITEMS_PER_PAGE = 10;
+  const totalPages = Math.ceil(30 / ITEMS_PER_PAGE);
+
+  function renderDesktopTriggers() {
+    const container = document.getElementById("desktopTriggers");
+    container.innerHTML = "";
+    const start = currentPage * ITEMS_PER_PAGE;
+    const end = Math.min(start + ITEMS_PER_PAGE, 30);
+    for (let i = start; i < end; i++) {
+      const idx = i + 1;
+      const btn = document.createElement("div");
+      btn.className = "level-btn" + (currentTier === idx ? " active" : "");
+      btn.setAttribute("data-level", idx);
+      btn.innerHTML = `<i class="fas fa-tag"></i> ${idx}`;
+      btn.addEventListener("click", () => setActiveTier(idx));
+      container.appendChild(btn);
+    }
+    document.getElementById("desktopPageInfo").innerText = `Page ${currentPage+1}/${totalPages}`;
+    const prevBtn = document.getElementById("desktopPrevBtn");
+    const nextBtn = document.getElementById("desktopNextBtn");
+    if (currentPage === 0) prevBtn.classList.add("disabled");
+    else prevBtn.classList.remove("disabled");
+    if (currentPage === totalPages-1) nextBtn.classList.add("disabled");
+    else nextBtn.classList.remove("disabled");
+  }
+
+  function renderMobileTriggers() {
+    const container = document.getElementById("mobileTriggers");
+    container.innerHTML = "";
+    const start = currentPage * ITEMS_PER_PAGE;
+    const end = Math.min(start + ITEMS_PER_PAGE, 30);
+    for (let i = start; i < end; i++) {
+      const idx = i + 1;
+      const btn = document.createElement("div");
+      btn.className = "mobile-tier-btn" + (currentTier === idx ? " active" : "");
+      btn.setAttribute("data-level", idx);
+      btn.innerHTML = `<i class="fas fa-tag"></i> ${idx}`;
+      btn.addEventListener("click", () => setActiveTier(idx));
+      container.appendChild(btn);
+    }
+    document.getElementById("mobilePageInfo").innerText = `Page ${currentPage+1}/${totalPages}`;
+    const prevBtn = document.getElementById("mobilePrevBtn");
+    const nextBtn = document.getElementById("mobileNextBtn");
+    if (currentPage === 0) prevBtn.classList.add("disabled");
+    else prevBtn.classList.remove("disabled");
+    if (currentPage === totalPages-1) nextBtn.classList.add("disabled");
+    else nextBtn.classList.remove("disabled");
+  }
 
   function renderCurrentTier() {
     const grid = document.getElementById("offersGrid");
     grid.innerHTML = "";
-    const offers = TIER_OFFERS[currentTier];
+    const idx = currentTier - 1;
     const levelTitle = document.getElementById("levelName");
     const levelBadge = document.getElementById("levelBadge");
-    levelTitle.innerText = `Offer ${currentTier} · ${OFFER_TITLES[currentTier-1]}`;
+    levelTitle.innerText = `Offer ${currentTier} · ${shuffledTitles[idx]}`;
     levelBadge.innerText = "1 Offer";
 
-    const offer = offers[0];
-    const globalIdx = currentTier - 1;
-    const count = clickCounts[globalIdx];
-    const isClaimed = claimedStatus[globalIdx];
+    const count = clickCounts[idx];
+    const isClaimed = claimedStatus[idx];
     
     const card = document.createElement("div");
-    card.style.background = "linear-gradient(105deg, #13182e, #0c1022)";
-    card.style.border = "1px solid #3b3f66";
-    card.style.borderRadius = "1.5rem";
-    card.style.padding = "1rem";
-    card.style.transition = "all 0.25s ease";
+    card.className = "offer-card";
     
     const iframeWrapper = document.createElement("div");
-    iframeWrapper.style.marginBottom = "1rem";
-    iframeWrapper.innerHTML = offer.iframeHtml;
+    iframeWrapper.className = "iframe-wrapper";
+    iframeWrapper.innerHTML = shuffledFrames[idx];
     
-    const btnWrapper = document.createElement("div");
-    btnWrapper.style.display = "flex";
-    btnWrapper.style.alignItems = "center";
-    btnWrapper.style.justifyContent = "space-between";
-    btnWrapper.style.gap = "12px";
-    btnWrapper.style.marginTop = "0.5rem";
+    const btn = document.createElement("div");
+    btn.className = "claim-btn" + (count > 0 ? " clicked" : "") + (isClaimed ? " disabled" : "");
     
-    const btn = document.createElement("a");
-    const isClaimedFlag = isClaimed;
-    btn.href = isClaimedFlag ? "javascript:void(0);" : "javascript:void(0);";
-    btn.className = "offer-btn" + (count > 0 ? " clicked" : "") + (isClaimedFlag ? " disabled" : "");
-    btn.style.flex = "1";
-    btn.style.display = "flex";
-    btn.style.alignItems = "center";
-    btn.style.justifyContent = "space-between";
-    btn.style.gap = "8px";
+    btn.innerHTML = `
+      <div class="claim-btn-left">
+        <i class="fas fa-${shuffledIcons[idx]}"></i>
+        <span>View & Claim ${shuffledTitles[idx]}</span>
+      </div>
+      <div class="claim-count">${count}</div>
+    `;
     
-    btn.innerHTML = `<div class="btn-left"><i class="fas fa-${offer.icon}"></i><span>View & Claim ${offer.name}</span></div><div class="click-count">${count}</div>`;
-    
-    if (!isClaimedFlag) {
+    if (!isClaimed) {
       btn.addEventListener("click", (e) => {
         e.stopPropagation();
-        e.preventDefault();
-        
-        if (claimedStatus[globalIdx]) return false;
-        
-        claimedStatus[globalIdx] = true;
-        clickCounts[globalIdx] += 1;
+        if (claimedStatus[idx]) return;
+        claimedStatus[idx] = true;
+        clickCounts[idx] += 1;
         saveCounts();
         updateTotalDisplay();
         
-        // Scroll to the iframe and highlight
         const iframeElem = iframeWrapper.querySelector("iframe");
         if (iframeElem) {
           iframeElem.style.border = "2px solid #4ade80";
-          iframeElem.style.transition = "0.3s";
           iframeElem.scrollIntoView({ behavior: "smooth", block: "center" });
           setTimeout(() => {
             iframeElem.style.border = "none";
           }, 2000);
         }
-        
         renderCurrentTier();
-        return false;
+        renderDesktopTriggers();
+        renderMobileTriggers();
       });
-    } else {
-      btn.style.cursor = "not-allowed";
-      btn.onclick = (e) => { e.preventDefault(); return false; };
     }
     
-    btnWrapper.appendChild(btn);
     card.appendChild(iframeWrapper);
-    card.appendChild(btnWrapper);
+    card.appendChild(btn);
     grid.appendChild(card);
   }
 
   function setActiveTier(tier) {
     currentTier = tier;
-    document.querySelectorAll(".level-btn").forEach(btn => {
-      if (parseInt(btn.getAttribute("data-level")) === tier) btn.classList.add("active");
-      else btn.classList.remove("active");
-    });
-    document.querySelectorAll(".mobile-tier-btn").forEach(btn => {
-      if (parseInt(btn.getAttribute("data-level")) === tier) btn.classList.add("active");
-      else btn.classList.remove("active");
-    });
+    renderDesktopTriggers();
+    renderMobileTriggers();
     renderCurrentTier();
+  }
+
+  function goToPage(delta) {
+    const newPage = currentPage + delta;
+    if (newPage >= 0 && newPage < totalPages) {
+      currentPage = newPage;
+      renderDesktopTriggers();
+      renderMobileTriggers();
+    }
   }
 
   function resetCounters() {
@@ -694,44 +789,19 @@
     saveCounts();
     updateTotalDisplay();
     renderCurrentTier();
+    renderDesktopTriggers();
+    renderMobileTriggers();
   }
 
-  function buildTriggers() {
-    const desktopContainer = document.getElementById("desktopTriggers");
-    const mobileContainer = document.getElementById("mobileTriggers");
-    desktopContainer.innerHTML = "";
-    mobileContainer.innerHTML = "";
-    for (let i=1; i<=30; i++) {
-      const dBtn = document.createElement("div");
-      dBtn.className = "level-btn";
-      dBtn.setAttribute("data-level", i);
-      dBtn.innerHTML = `<i class="fas fa-tag"></i> ${i}`;
-      dBtn.addEventListener("click", () => setActiveTier(i));
-      desktopContainer.appendChild(dBtn);
-      
-      if (i <= 25) {
-        const mBtn = document.createElement("div");
-        mBtn.className = "mobile-tier-btn";
-        mBtn.setAttribute("data-level", i);
-        mBtn.innerHTML = `<i class="fas fa-tag"></i> ${i}`;
-        mBtn.addEventListener("click", () => setActiveTier(i));
-        mobileContainer.appendChild(mBtn);
-      }
-    }
-    // Add remaining 5 buttons to mobile if needed (wrap to next line automatically)
-    for (let i=26; i<=30; i++) {
-      const mBtn = document.createElement("div");
-      mBtn.className = "mobile-tier-btn";
-      mBtn.setAttribute("data-level", i);
-      mBtn.innerHTML = `<i class="fas fa-tag"></i> ${i}`;
-      mBtn.addEventListener("click", () => setActiveTier(i));
-      mobileContainer.appendChild(mBtn);
-    }
-  }
-
+  document.getElementById("desktopPrevBtn").addEventListener("click", () => goToPage(-1));
+  document.getElementById("desktopNextBtn").addEventListener("click", () => goToPage(1));
+  document.getElementById("mobilePrevBtn").addEventListener("click", () => goToPage(-1));
+  document.getElementById("mobileNextBtn").addEventListener("click", () => goToPage(1));
   document.getElementById("resetAllBtn").addEventListener("click", resetCounters);
+
   loadCounts();
-  buildTriggers();
+  renderDesktopTriggers();
+  renderMobileTriggers();
   setActiveTier(1);
   updateTotalDisplay();
 </script>
