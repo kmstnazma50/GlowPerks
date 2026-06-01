@@ -231,32 +231,7 @@
     }
 
     .section-title {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 1.5rem 0 1rem 0;
-      padding-bottom: 6px;
-      border-bottom: 2px solid rgba(251, 146, 60, 0.5);
-    }
-
-    .section-title i {
-      font-size: 1.5rem;
-      color: #4ade80;
-    }
-
-    .section-title h2 {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #fee3c0;
-    }
-
-    .badge {
-      background: #f97316;
-      padding: 2px 12px;
-      border-radius: 50px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: #0a0a1a;
+      display: none;
     }
 
     .pagination-controls {
@@ -330,7 +305,7 @@
       box-shadow: 0 8px 18px rgba(0,0,0,0.3);
     }
     .iframe-wrapper {
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
       overflow: hidden;
       border-radius: 12px;
       line-height: 0;
@@ -341,6 +316,20 @@
       overflow: hidden;
       border-radius: 12px;
       display: block;
+    }
+    .offer-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fbbf24;
+      margin-bottom: 0.75rem;
+      padding: 0 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .offer-title i {
+      color: #4ade80;
+      font-size: 0.9rem;
     }
     .claim-btn {
       background: linear-gradient(105deg, #1a1e32, #11152a);
@@ -502,11 +491,6 @@
       </div>
     </div>
 
-    <div class="section-title" id="dynamicSectionTitle">
-      <i class="fas fa-chart-simple"></i>
-      <h2 id="levelName">Offer 1 · Premium Access</h2>
-      <div class="badge" id="levelBadge">1 Offer</div>
-    </div>
     <div id="offersGrid" class="btn-grid"></div>
 
     <div class="stats-card">
@@ -544,7 +528,6 @@
 
 <script>
   // ==================== 30 FACEBOOK IFRAME POSTS WITH EXACT HEIGHTS ====================
-  // Heights: 207px (most), 227px (one special)
   const FRAMES_DATA = [
     { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02SNHoTApWVs1EaGaStEDoAjwDVhaHhdW17c6npm5BGP3ae2VrxajayQyJ6Bo4jf9il%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
     { html: `<iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02QmgQqJodErAeuGxatDEscgELgkqgPQPwa4i2oRHXVJ2sSSZKNiWBZT4ab5nRLhHFl%26id%3D100091951256947&show_text=true&width=500" style="width:100%; height:207px; border:none; overflow:hidden; border-radius:12px;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`, height: 207 },
@@ -596,7 +579,6 @@
     "leaf", "dice-d6", "bow-arrow", "shield-halbed", "shield-alt"
   ];
 
-  // Random shuffle for each user (persistent)
   function shuffleArray(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -606,7 +588,7 @@
   }
 
   function getRandomOrder() {
-    const RANDOM_ORDER_KEY = "premiumOfferRandomV4";
+    const RANDOM_ORDER_KEY = "premiumOfferRandomV5";
     const savedOrder = localStorage.getItem(RANDOM_ORDER_KEY);
     if (savedOrder) {
       try {
@@ -628,8 +610,8 @@
   const TOTAL_OFFERS = 30;
   let clickCounts = new Array(TOTAL_OFFERS).fill(0);
   let claimedStatus = new Array(TOTAL_OFFERS).fill(false);
-  const STORAGE_KEY = "premiumOfferFrameRandomV4";
-  const CLAIMED_KEY = "premiumOfferFrameClaimedRandomV4";
+  const STORAGE_KEY = "premiumOfferFrameRandomV5";
+  const CLAIMED_KEY = "premiumOfferFrameClaimedRandomV5";
 
   function loadCounts() {
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -711,11 +693,6 @@
     const grid = document.getElementById("offersGrid");
     grid.innerHTML = "";
     const idx = currentTier - 1;
-    const levelTitle = document.getElementById("levelName");
-    const levelBadge = document.getElementById("levelBadge");
-    levelTitle.innerText = `Offer ${currentTier} · ${shuffledTitles[idx]}`;
-    levelBadge.innerText = "1 Offer";
-
     const count = clickCounts[idx];
     const isClaimed = claimedStatus[idx];
     
@@ -725,6 +702,10 @@
     const iframeWrapper = document.createElement("div");
     iframeWrapper.className = "iframe-wrapper";
     iframeWrapper.innerHTML = shuffledFrames[idx];
+    
+    const titleDiv = document.createElement("div");
+    titleDiv.className = "offer-title";
+    titleDiv.innerHTML = `<i class="fas fa-${shuffledIcons[idx]}"></i> Offer ${currentTier} · ${shuffledTitles[idx]}`;
     
     const btn = document.createElement("div");
     btn.className = "claim-btn" + (count > 0 ? " clicked" : "") + (isClaimed ? " disabled" : "");
@@ -761,6 +742,7 @@
     }
     
     card.appendChild(iframeWrapper);
+    card.appendChild(titleDiv);
     card.appendChild(btn);
     grid.appendChild(card);
   }
